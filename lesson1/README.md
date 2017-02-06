@@ -1,5 +1,7 @@
 ## Lesson 1 : Localization
 
+![sense and move](../images/sense-and-move.jpeg)
+
 In this lesson, we learnt about-
 * Markov Localization
 * Probabilities
