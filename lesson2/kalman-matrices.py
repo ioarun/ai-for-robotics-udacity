@@ -3,6 +3,7 @@
 
 from math import *
 
+
 class matrix:
     
     # implements basic operations of a matrix class
@@ -142,11 +143,17 @@ class matrix:
 
 def kalman_filter(x, P):
     for n in range(len(measurements)):
-        
+    	S = H*P*H.transpose() + R
+    	K = P*H.transpose()*S.inverse()
+        y = matrix([[measurements[n]]])- H*x
         # measurement update
+        x = x + K*y
+    	P = (I - K*H)*P
 
         # prediction
-        
+        x = F*x + u
+        P = F*P*F.transpose()
+
     return x,P
 
 measurements = [1, 2, 3]
