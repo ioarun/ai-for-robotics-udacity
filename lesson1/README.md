@@ -24,3 +24,19 @@ Now suppose the robot makes a movement and is near the next landmark.The posteri
 
 The overall picture is that measurements/sensing accumulates information about the surrounding and increases certainty whereas motion adds noise/uncertainty.This is very natural intuition because while measuring, major part of the measurement would be true and only some part will be errorneous given the noisy sensors used.Whereas, while making motion, it's hard to *infer* the new location as it is totally based on the previous location.
 
+The histogram filter works on discrete state space, something like a gridworld and the process is called *Monte Carlo Localization*.
+
+# Sense/Measurement Update
+
+The measurement update is done using Bayes Rule (product).The prior (initial probability distribution of world) is *multiplied* by the probability of a certain measurement *Z* given a state *x* to give a posterier probability distribution.The result is then normalized by the total.This is shown as follows:
+
+P(x|Z) = (P(Z|x) P(x))/P(Z)
+
+
+# Motion Update
+
+The motion update is done using Theorem of Total Probability (addition).The prior probability is multiplied by the probability to move at current state from the prior state.All such probabilities(exact move, stay, undershoot, overshoot, etc) are summed up to give final posterior probability distribution.This leads to loss of information.
+
+P(x') = Sum(P(x'|x)P(x))
+
+
