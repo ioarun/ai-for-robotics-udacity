@@ -1,24 +1,10 @@
-# --------------
-# USER INSTRUCTIONS
-#
+
 # Write a function in the class robot called sense()
 # that takes self as input
 # and returns a list, Z, of the four bearings* to the 4
 # different landmarks. you will have to use the robot's
 # x and y position, as well as its orientation, to
 # compute this.
-#
-# *bearing is defined in the video
-# which accompanies this problem.
-#
-# For now, please do NOT add noise to your sense function.
-#
-# Please do not modify anything except where indicated
-# below.
-#
-# There are test cases provided at the bottom which you are
-# free to use. If you uncomment any of these cases for testing
-# make sure that you re-comment it before you submit.
 
 from math import *
 import random
@@ -87,28 +73,18 @@ class robot:
         self.steering_noise = float(new_s_noise)
         self.distance_noise = float(new_d_noise)
 
-    ############# ONLY ADD/MODIFY CODE BELOW HERE ###################
-
     # --------
     # sense:
     #   obtains bearings from positions
     #
     
-    def sense(self): #do not change the name of this function
+    def sense(self):
         Z = []
 
-        # ENTER CODE HERE
-        # HINT: You will probably need to use the function atan2()
+      
 
-        return Z #Leave this line here. Return vector Z of 4 bearings.
+        return Z # Return vector Z of 4 bearings.
     
-    ############## ONLY ADD/MODIFY CODE ABOVE HERE ####################
-
-
-## IMPORTANT: You may uncomment the test cases below to test your code.
-## But when you submit this code, your test cases MUST be commented
-## out. Our testing program provides its own code for testing your
-## sense function with randomized initial robot coordinates.
     
 ## --------
 ## TEST CASES:
@@ -131,11 +107,6 @@ class robot:
 ##print 'Robot:        ', myrobot
 ##print 'Measurements: ', myrobot.sense()
 ##
-
-## IMPORTANT: You may uncomment the test cases below to test your code.
-## But when you submit this code, your test cases MUST be commented
-## out. Our testing program provides its own code for testing your
-## sense function with randomized initial robot coordinates.
     
 
 ##
@@ -154,10 +125,3 @@ class robot:
 ##print 'Robot:        ', myrobot
 ##print 'Measurements: ', myrobot.sense()
 ##
-
-
-## IMPORTANT: You may uncomment the test cases below to test your code.
-## But when you submit this code, your test cases MUST be commented
-## out. Our testing program provides its own code for testing your
-## sense function with randomized initial robot coordinates.
-    
