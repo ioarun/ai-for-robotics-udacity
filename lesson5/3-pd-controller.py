@@ -128,6 +128,7 @@ class robot:
 def run(param1, param2):
     myrobot = robot()
     myrobot.set(0.0, 1.0, 0.0)
+    #myrobot.set_steering_drift(10.0/180*pi)
     speed = 1.0 # motion distance is equal to speed (we assume time = 1)
     N = 100
     previous_CTE = myrobot.y
