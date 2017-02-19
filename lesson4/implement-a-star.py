@@ -43,6 +43,8 @@ def search(grid,init,goal,cost,heuristic):
     expand = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
     action = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
 
+    came_from = []
+
     x = init[0]
     y = init[1]
     g = 0
@@ -81,7 +83,7 @@ def search(grid,init,goal,cost,heuristic):
                             f2 = g2 + heuristic[x2][y2] 
                             open.append([f2, g2, x2, y2])
                             closed[x2][y2] = 1
-
+                            print next
     return expand
     
 print search(grid, init, goal, cost, heuristic)
