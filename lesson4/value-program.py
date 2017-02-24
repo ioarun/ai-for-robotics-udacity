@@ -54,7 +54,7 @@ def compute_value(grid,goal,cost):
 							if v2 < value[x][y]:
 								change = True
 								value[x][y] = v2
-			print value
+			# print value
 
 	return value 
 
