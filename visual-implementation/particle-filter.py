@@ -16,6 +16,7 @@ black = (0, 0, 0)
 pygame.init()
 
 screen = pygame.display.set_mode((display_width, display_height))
+pygame.display.set_caption("Particle Filter Demo")
 clock = pygame.time.Clock()
 
 screen.fill(white)
@@ -62,12 +63,13 @@ def resample(p, w):
 
 	return p
 
-def find_distance(point1, point2):
+def find_noisy_distance(point1, point2):
 	x1 = point1[0]
 	y1 = point1[1]
 	x2 = point2[0]
 	y2 = point2[1]
-	return sqrt((x1-x2)**2 + (y1-y2)**2)
+	return sqrt((x1-x2)**2 + (y1-y2)**2) + random.gauss(0.0, 5.0)
+
 
 def measurement_prob(particle, measurement, landmarks):
         
@@ -75,8 +77,7 @@ def measurement_prob(particle, measurement, landmarks):
     
     prob = 1.0;
     for i in range(4):
-        dist = find_distance(particle, landmarks[i])
-        dist += random.gauss(0.0, 5.0)
+        dist = find_noisy_distance(particle, landmarks[i])
         prob *= Gaussian(dist, 5.0, measurement[i])
     return prob 
 
@@ -101,9 +102,9 @@ def main_loop():
 	particles_list = particles()
 
 	# calculate distances from each landmark
-	dist = []
+	measurements = []
 	for l in landmarks_list:
-		dist.append(find_distance([x, y], l))
+		measurements.append(find_noisy_distance([x, y], l))
 
 	while not exit:
 		screen.fill(white)
@@ -137,19 +138,28 @@ def main_loop():
 		# draw car
 		car(x, y)
 		# calculate distances from each landmark
-		dist = []
+		measurements = []
 		for l in landmarks_list:
-			dist.append(find_distance([x, y], l))
+			measurements.append(find_noisy_distance([x, y], l))
+
 		# particles_list = particles()
 		weights = []
 		for i in range(1000):
-			weights.append(measurement_prob(particles_list[i],dist, landmarks_list))
+			weights.append(measurement_prob(particles_list[i],measurements, landmarks_list))
 
   		particles_list = resample(particles_list, weights)
  		
-  		for p in range(1000):
-  		  	pygame.draw.circle(screen, red, (particles_list[p][0]+20, particles_list[p][1]+10), int(1000000*weights[p]))
+ 		sum_x = 0
+ 		sum_y = 0
 
+  		for p in range(1000):
+  		  	pygame.draw.circle(screen, red, (particles_list[p][0]+20, particles_list[p][1]+10), int(100000*weights[p]))
+  		  	sum_x += particles_list[p][0]
+  		  	sum_y += particles_list[p][1]
+
+  		# print sum_x/len(particles_list), sum_y/len(particles_list)
+  		print "error in x :", x - sum_x/len(particles_list)
+  		print "error in y :", y - sum_y/len(particles_list)
 		pygame.display.update()
 		clock.tick(30)
 
