@@ -106,6 +106,5 @@ for i in range(N):
     x = x.move(0.1, 5)
     p.append(x)
 
-print p 
-
-
+print p
+ 
