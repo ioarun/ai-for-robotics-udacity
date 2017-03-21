@@ -2,17 +2,24 @@
 
 from gridworld import GridWorld
 import time
+from math import *
 
 # build grid structure
 grid = [[0 for col in range(10)] for row in range(10)]
 grid[0][1] = 1 # obstacle
-grid[1][1] = 1 # obstacle
-grid[2][1] = 1 # obstacle
-grid[3][1] = 1 # obstacle
-grid[4][4] = 1 # obstacle
+# grid[1][1] = 1 # obstacle
+# grid[2][1] = 1 # obstacle
+# grid[3][1] = 1 # obstacle
+# grid[4][4] = 1 # obstacle
+# grid[5][4] = 1 # obstacle
+# grid[5][4] = 1 # obstacle
+# grid[6][4] = 1
+# grid[7][4] = 1
+# grid[8][4] = 1
+# grid[9][4] = 1
 
 init = [0, 0]
-goal = [4, 5]
+goal = [9, 9]
 
 # build heuristics grid
 heuristics = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
@@ -38,13 +45,15 @@ def check_valid(node, grid):
         return False
 
 def heuristic(a, b):
-	return (abs(a[0] - b[0]) + abs(a[1] - b[1]))
+	# return (abs(a[0] - b[0]) + abs(a[1] - b[1]))
+	return sqrt((a[0] - b[0])**2 + (a[1]-b[1])**2)
 
 def run_a_star(grid, heuristics, init, goal, cost):
-	delta = [[-1, 0 ], # go up
-         [ 0, -1], # go left
-         [ 1, 0 ], # go down
-         [ 0, 1]] # go right
+	delta = [[ 0, -1], # go left
+		[ 1, 0 ], # go down
+		[ 0, 1], # go right
+		[-1, 0 ]] # go up
+        
 	delta_name = ['^', '<', 'v', '>']  
 	action = [[-1 for row in range(len(grid[0]))] for col in range(len(grid))]
 	policy = [[' ' for row in range(len(grid[0]))] for col in range(len(grid))]
@@ -76,7 +85,7 @@ def run_a_star(grid, heuristics, init, goal, cost):
 		f = next[0]
 		gridworld.draw_cell([[f, [x, y]]])
 		gridworld.show()
-		time.sleep(0.5)
+		# time.sleep(0.5)
 		expanded[next[2]][next[3]] = count
 		count += 1
 		for a in range(len(delta)):
@@ -114,6 +123,9 @@ def run_a_star(grid, heuristics, init, goal, cost):
 	gridworld.show()
 
 run_a_star(grid, heuristics, init, goal, cost=1)
+
+while True:
+	pass
 
 
 
