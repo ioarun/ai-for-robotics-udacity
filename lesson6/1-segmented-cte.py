@@ -481,9 +481,22 @@ def run(grid, goal, spath, params, printflag = False, speed = 0.1, timeout = 100
         # start with the present robot estimate
         estimate = filter.get_position()
 
-        ### ENTER CODE HERE
-        
+        dx = spath[index+1][0] - spath[index][0]
+        dy = spath[index+1][1] - spath[index][1]
 
+        drx = estimate[0] - spath[index][0]
+        dry = estimate[1] - spath[index][1]
+
+        # u is the robot estimate projected into the path segment
+        u = (drx*dx + dry*dy)/(dx*dx + dy*dy)
+
+        # the cte is the estimate projected onto the normal of the path segment
+        cte = (dry*dx - drx*dy)/(dx*dx + dy*dy)
+
+        if u > 1:
+            index += 1
+        
+        # print estimate
         # ----------------------------------------
 
 
